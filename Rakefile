@@ -16,26 +16,25 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "sucker_punch-backgroundable"
   gem.homepage = "http://github.com/mvdamme/sucker_punch-backgroundable"
-  gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.license = "LGPL-3"
+  gem.summary = %Q{Easily execute an object's methods in the background with sucker_punch}
+  gem.description = %Q{This gem allows you to background any method call without having to write a special job class. Heavily inspired by the Backgroundable module in Torquebox.}
   gem.email = "michael.vandamme@vub.ac.be"
   gem.authors = ["Michaël Van Damme"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+require 'rspec/core'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
 desc "Code coverage detail"
 task :simplecov do
   ENV['COVERAGE'] = "true"
-  Rake::Task['test'].execute
+  Rake::Task['spec'].execute
 end
 
 task :default => :test
