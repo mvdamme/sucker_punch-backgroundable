@@ -1,6 +1,7 @@
 # sucker_punch-backgroundable
+[![Build Status](https://travis-ci.org/mvdamme/sucker_punch-backgroundable.png)](https://travis-ci.org/mvdamme/sucker_punch-backgroundable)
 
-This gem allows you to background any method call with [SuckePunch](https://github.com/brandonhilkert/sucker_punch) without 
+This gem allows you to background any method call with [SuckerPunch](https://github.com/brandonhilkert/sucker_punch) without 
 having to write a special job class.
 It provides the same API as the Backgroundable module from [TorqueBox](http://torquebox.org/), and a large part of the code
 comes directly from the TorqueBox project.
@@ -21,7 +22,7 @@ bundle install
 
 ## Usage
 
-Include the `SuckerPunch::Backgroundable` module in your class. Then you use `always_background :method1, :method2, ...` to
+Include the `SuckerPunch::Backgroundable` module in your class. Then you can use `always_background :method1, :method2, ...` to
 cause the supplied methods to run asynchronously (in the background). Example:
 
 ```ruby
@@ -82,7 +83,7 @@ Both `background` and `later` also work with class methods (e.g. `MyClass.backgr
 
 When backgrounding an instance method, the method is called on the object, but in a different thread (using SuckerPunch).
 If you don't use the object anymore in the current thread, this is ok. If the object is still being used in the current thread,
-it may be better to reload it from the data store (assuming a data strore backed object) in the background thread to avoid any 
+it may be better to reload it from the data store (assuming a data store backed object) in the background thread to avoid any 
 threading issues. The gem can do this automatically, although currently only ActiveRecord is supported:
 
 ```ruby
