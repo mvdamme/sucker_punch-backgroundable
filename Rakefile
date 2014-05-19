@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/mvdamme/sucker_punch-backgroundable"
   gem.license = "LGPL-3"
   gem.summary = %Q{Easily execute an object's methods in the background with sucker_punch}
-  gem.description = %Q{This gem allows you to background any method call without having to write a special job class. Heavily inspired by the Backgroundable module in Torquebox.}
+  gem.description = %Q{This gem allows you to background any method call without having to write a special job class. Heavily inspired by the Backgroundable module in TorqueBox.}
   gem.email = "michael.vandamme@vub.ac.be"
   gem.authors = ["Michaël Van Damme"]
   # dependencies defined in Gemfile
