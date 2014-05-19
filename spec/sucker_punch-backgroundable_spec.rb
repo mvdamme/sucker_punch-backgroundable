@@ -142,6 +142,16 @@ describe "sucker_punch-backgroundable" do
         sleep(0.5)
         TestModel.queue.pop.should eq(6)
       end
+
+      it "ignores :reload for class methods" do
+        SuckerPunch::Backgroundable.configure do |config|
+          config.reload = true
+        end
+        TestModel.class_always
+        sleep(0.5)
+        TestModel.queue.pop.should eq(7)
+      end
+
     end
   end
   

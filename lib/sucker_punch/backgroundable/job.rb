@@ -28,7 +28,7 @@ module SuckerPunch
         end
         
         def load(receiver)
-          receiver.class.find(receiver.id)
+          receiver.respond_to?(:id) ? receiver.class.find(receiver.id) : receiver
         end
     end
 

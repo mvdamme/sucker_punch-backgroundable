@@ -15,6 +15,12 @@ class TestModel < ActiveRecord::Base
     @@queue << value
   end
 
+  always_background :class_always
+  def self.class_always
+    sleep(0.4)
+    @@queue << 7
+  end
+
   always_background :copy_value_in_background, :reload => true
   def copy_value_in_background
     sleep(0.4)
