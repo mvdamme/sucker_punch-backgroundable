@@ -28,7 +28,7 @@ describe "sucker_punch-backgroundable" do
       check_queue(200, 2.2)
     end
 
-    it "allows running instance methods with a specified delay, even when they are declared as :always_bacground" do
+    it "allows running instance methods with a specified delay, even when they are declared as :always_background" do
       @obj.later(2).always1 # run after 2 seconds
       check_queue(1, 2.2)
     end
@@ -86,7 +86,7 @@ describe "sucker_punch-backgroundable" do
     TestClass.queue.length.should eq(1)
     TestClass.queue.pop.should eq(value)
   end
-
+  
   context 'reloading' do
     before do
       require File.expand_path(File.dirname(__FILE__) + '/load_active_record')
@@ -123,10 +123,19 @@ describe "sucker_punch-backgroundable" do
     end
 
     context 'global reload option' do
-      it "honors when global reload is set to true" do
+      before do
         SuckerPunch::Backgroundable.configure do |config|
           config.reload = true
         end
+      end
+      
+      after do
+        SuckerPunch::Backgroundable.configure do |config|
+          config.reload = false
+        end
+      end
+      
+      it "honors when global reload is set to true" do
         @model.later(0.4).copy_value
         @model.value += 1 # change object
         sleep(0.5)
@@ -134,9 +143,6 @@ describe "sucker_punch-backgroundable" do
       end
 
       it "honors :reload => false even when when global reload is set to true" do
-        SuckerPunch::Backgroundable.configure do |config|
-          config.reload = true
-        end
         @model.later(0.4, :reload => false).copy_value
         @model.value += 1 # change object
         sleep(0.5)
@@ -144,9 +150,6 @@ describe "sucker_punch-backgroundable" do
       end
 
       it "ignores :reload for class methods" do
-        SuckerPunch::Backgroundable.configure do |config|
-          config.reload = true
-        end
         TestModel.class_always
         sleep(0.5)
         TestModel.queue.pop.should eq(7)
@@ -155,4 +158,41 @@ describe "sucker_punch-backgroundable" do
     end
   end
   
+  context 'enable / disable' do
+    before do
+      SuckerPunch::Backgroundable.configure do |config|
+        config.enabled = false
+      end
+      @obj = TestClass.new
+      TestClass.clear
+    end
+
+    it "respects enabled => false for methods marked as :always_background" do
+      @obj.always1
+      TestClass.queue.length.should eq(1)
+      TestClass.queue.pop.should eq(1)
+    end
+    
+    it "respects enabled => false for calls to 'background'" do
+      @obj.background.normal(6)
+      TestClass.queue.length.should eq(1)
+      TestClass.queue.pop.should eq(6)
+    end
+
+    it "respects enabled => false for calls to 'later'" do
+      @obj.later(10).normal(6)
+      TestClass.queue.length.should eq(1)
+      TestClass.queue.pop.should eq(6)
+    end
+
+    it "respects enabled => false for methods marked as :always_background (with reloading)" do
+      require File.expand_path(File.dirname(__FILE__) + '/load_active_record')
+      require File.expand_path(File.dirname(__FILE__) + '/test_model')
+      @model = TestModel.create(:value => 5)
+      @model.copy_value_in_background
+      TestModel.queue.pop.should eq(5)
+    end
+    
+  end
+
 end

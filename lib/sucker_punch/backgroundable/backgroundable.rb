@@ -110,7 +110,8 @@ module SuckerPunch
         (singleton_method ? singleton : self).class_eval do
           define_method async_method do |*args|
             # run sucker punch job asynchronously
-            Job.new.async.perform(self, sync_method, args, options)
+#            Job.new.async.perform(self, sync_method, args, options)
+            JobRunner.new(self, sync_method, args, options).run
           end
         end
         
@@ -142,11 +143,7 @@ module SuckerPunch
       def method_missing(method, *args, &block)
         @receiver.method_missing(method, *args, &block) unless @receiver.respond_to?(method)
         raise ArgumentError.new("Backgrounding a method with a block argument is not supported.") if block_given?
-        if @seconds > 0
-          Job.new.async.later(@seconds, @receiver, method, args, @options)
-        else
-          Job.new.async.perform(@receiver, method, args, @options)
-        end
+        JobRunner.new(@receiver, method, args, @options).run(@seconds)
       end
     end
     

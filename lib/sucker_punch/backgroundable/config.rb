@@ -11,10 +11,12 @@ module SuckerPunch
     end
   
     class Configuration
+      attr_accessor :enabled
       attr_accessor :workers
       attr_accessor :reload
   
       def initialize
+        @enabled = true
         @workers = 2
         @reload = false
       end
