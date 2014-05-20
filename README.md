@@ -114,16 +114,20 @@ end
 
 ## Configuration
 
-Apart from the `reload` option described above, there is only one other configuration setting:
+Apart from the `reload` option described above, there is two other configuration settings:
 
 ```ruby
 SuckerPunch::Backgroundable.configure do |config|
   config.reload = true
   config.workers = 4   # default is 2
+  config.enabled = true
 end
 ```
 
 The number of workers sets the number of background threads that SuckerPunch will use. The default (and minimum) is 2.
+
+By setting enabled to false, backgrounding is globally disabled, so all methods will be executed synchronously. This
+can be useful in tests.
 
 ## Usage with ActiveRecord
 
@@ -133,6 +137,24 @@ If you want sucker_punch-backgroundable to be available in all models you can  u
 ```ruby
 ActiveRecord::Base.send(:include, SuckerPunch::Backgroundable)
 ```
+
+## Switching from TorqueBox Backgroundable
+
+This gem is completely independent from TorqueBox (or JRuby). But if you are already using TorqueBox Backgroundable, you can switch
+to backgrounding with SuckerPunch by a simple change in an initializer:
+
+```ruby
+# In config/initializers/active_record_backgroundable.rb, replace
+if defined?(TorqueBox::Messaging::Backgroundable) && defined?(ActiveRecord::Base)
+  ActiveRecord::Base.send(:include, TorqueBox::Messaging::Backgroundable)
+end
+
+# by this:
+ActiveRecord::Base.send(:include, SuckerPunch::Backgroundable)
+```
+
+Switching from TorqueBox Backgroundable to SuckerPunch will save you RAM (since TorqueBox uses a separate application instance
+for Backgroundable), but remember that SuckerPunch jobs are not persisted, so you might lose jobs on a server restart.
 
 ## Contributing to sucker_punch-backgroundable
  
