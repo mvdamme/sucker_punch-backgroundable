@@ -98,4 +98,4 @@ DEPENDENCIES
   rspec (~> 2.8.0)
   simplecov
   sqlite3
-  sucker_punch (>= 1.0.0)
+  sucker_punch (~> 1.0)
