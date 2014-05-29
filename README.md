@@ -23,11 +23,11 @@ bundle install
 ## Usage
 
 Include the `SuckerPunch::Backgroundable` module in your class. Then you can use `always_background :method1, :method2, ...` to
-cause the supplied methods to run asynchronously (in the background). Example:
+cause the supplied methods to run asynchronously in the background ("fire and forget"). Example:
 
 ```ruby
 class MyClass
-  SuckerPunch::Backgroundable
+  include SuckerPunch::Backgroundable
   
   always_background :send_email
   def send_email
@@ -54,7 +54,7 @@ Methods that have not been marked with `always_background` can also be backgroun
 
 ```ruby
 class MyClass
-  SuckerPunch::Backgroundable
+  include SuckerPunch::Backgroundable
   
   def notify
     # ...
@@ -88,7 +88,7 @@ threading issues. The gem can do this automatically, although currently only Act
 
 ```ruby
 class MyModel < ActiveRecord::Base
-  SuckerPunch::Backgroundable
+  include SuckerPunch::Backgroundable
   
   always_background :send_email, :reload => true
   def send_email
