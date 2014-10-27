@@ -67,7 +67,7 @@ obj = MyClass.new
 obj.background.notify
 
 # This will run the method normally (synchronously, returning after the method is finished)
-obj.background.notify
+obj.notify
 ```
 
 It is also possible to specify a delay in seconds:
