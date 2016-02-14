@@ -8,7 +8,7 @@ ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: db_file
 
 ActiveRecord::Migration.create_table :test_models do |t|
   t.integer :value
-  t.timestamps
+  t.timestamps :null => false
 end
 
 module ActiveModel::Validations
