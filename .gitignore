@@ -50,3 +50,7 @@ pkg
 
 spec/test.db
 .project
+
+# rvm
+.ruby-version
+.ruby-gemset
