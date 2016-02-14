@@ -37,10 +37,6 @@ module SuckerPunch
         receiver = load(receiver) if instantiate?(options)
         call(receiver, method, *args)
       end
-    
-      def later(sec, *args)
-        after(sec) { perform(*args) }
-      end
     end
     
     class JobRunner
@@ -54,9 +50,9 @@ module SuckerPunch
         if SuckerPunch::Backgroundable.configuration.enabled
           # run as SuckerPunch Job
           if seconds > 0
-            Job.new.async.later(seconds, @receiver, @method, @args, @options)
+            Job.perform_in(seconds, @receiver, @method, @args, @options)
           else
-            Job.new.async.perform(@receiver, @method, @args, @options)
+            Job.perform_async(@receiver, @method, @args, @options)
           end
         else
           # run without SuckerPunch or Celluloid
