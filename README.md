@@ -1,7 +1,7 @@
 # sucker_punch-backgroundable
 [![Build Status](https://travis-ci.org/mvdamme/sucker_punch-backgroundable.png)](https://travis-ci.org/mvdamme/sucker_punch-backgroundable)
 
-This gem allows you to background any method call with [SuckerPunch](https://github.com/brandonhilkert/sucker_punch) without 
+This gem allows you to background any method call with [Sucker Punch](https://github.com/brandonhilkert/sucker_punch) without 
 having to write a special job class.
 It provides the same API as the Backgroundable module from [TorqueBox](http://torquebox.org/), and a large part of the code
 comes directly from the TorqueBox project.
@@ -19,6 +19,10 @@ And then execute:
 ```ruby
 bundle install
 ```
+
+## Versions
+
+The Sucker Punch API changed when Sucker Punch 2.0 was released. This gem uses the new API and requires Sucker Punch 2.0 (or higher). If for some reason you have to use an older version of Sucker Punch, please use version 0.2.0 of this gem.
 
 ## Usage
 
@@ -67,7 +71,7 @@ obj = MyClass.new
 obj.background.notify
 
 # This will run the method normally (synchronously, returning after the method is finished)
-obj.background.notify
+obj.notify
 ```
 
 It is also possible to specify a delay in seconds:
