@@ -118,7 +118,7 @@ end
 
 ## Configuration
 
-Apart from the `reload` option described above, there is two other configuration settings:
+Apart from the `reload` option described above, there are two other configuration settings:
 
 ```ruby
 SuckerPunch::Backgroundable.configure do |config|
