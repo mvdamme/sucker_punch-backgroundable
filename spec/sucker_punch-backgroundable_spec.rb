@@ -81,10 +81,10 @@ describe "sucker_punch-backgroundable" do
   
   def check_queue(value, wait_before = 0.2, wait_after = 0.3)
     sleep( wait_before )
-    TestClass.queue.length.should eq(0)
+    expect( TestClass.queue.length ).to eq(0)
     sleep( wait_after )
-    TestClass.queue.length.should eq(1)
-    TestClass.queue.pop.should eq(value)
+    expect( TestClass.queue.length ).to eq(1)
+    expect( TestClass.queue.pop ).to eq(value)
   end
   
   context 'reloading' do
@@ -105,21 +105,21 @@ describe "sucker_punch-backgroundable" do
       @model.later(0.4, :reload => true).copy_value
       @model.value += 1 # change object
       sleep(0.5)
-      TestModel.queue.pop.should eq(5)
+      expect( TestModel.queue.pop ).to eq(5)
     end
 
     it "doesn't reload objects when :reload option is false" do
       @model.later(0.4).copy_value # :reload defaults to false
       @model.value += 1 # change object
       sleep(0.5)
-      TestModel.queue.pop.should eq(6)
+      expect( TestModel.queue.pop ).to eq(6)
     end
 
     it "respects :reload => true as option to :always_background" do
       @model.copy_value_in_background
       @model.value += 1 # change object
       sleep(0.5)
-      TestModel.queue.pop.should eq(5)
+      expect( TestModel.queue.pop ).to eq(5)
     end
 
     context 'global reload option' do
@@ -139,20 +139,20 @@ describe "sucker_punch-backgroundable" do
         @model.later(0.4).copy_value
         @model.value += 1 # change object
         sleep(0.5)
-        TestModel.queue.pop.should eq(5)
+        expect( TestModel.queue.pop ).to eq(5)
       end
 
       it "honors :reload => false even when when global reload is set to true" do
         @model.later(0.4, :reload => false).copy_value
         @model.value += 1 # change object
         sleep(0.5)
-        TestModel.queue.pop.should eq(6)
+        expect( TestModel.queue.pop ).to eq(6)
       end
 
       it "ignores :reload for class methods" do
         TestModel.class_always
         sleep(0.5)
-        TestModel.queue.pop.should eq(7)
+        expect( TestModel.queue.pop ).to eq(7)
       end
 
     end
@@ -169,20 +169,20 @@ describe "sucker_punch-backgroundable" do
 
     it "respects enabled => false for methods marked as :always_background" do
       @obj.always1
-      TestClass.queue.length.should eq(1)
-      TestClass.queue.pop.should eq(1)
+      expect( TestClass.queue.length ).to eq(1)
+      expect( TestClass.queue.pop ).to eq(1)
     end
     
     it "respects enabled => false for calls to 'background'" do
       @obj.background.normal(6)
-      TestClass.queue.length.should eq(1)
-      TestClass.queue.pop.should eq(6)
+      expect( TestClass.queue.length ).to eq(1)
+      expect( TestClass.queue.pop ).to eq(6)
     end
 
     it "respects enabled => false for calls to 'later'" do
       @obj.later(10).normal(6)
-      TestClass.queue.length.should eq(1)
-      TestClass.queue.pop.should eq(6)
+      expect( TestClass.queue.length ).to eq(1)
+      expect( TestClass.queue.pop ).to eq(6)
     end
 
     it "respects enabled => false for methods marked as :always_background (with reloading)" do
@@ -190,7 +190,7 @@ describe "sucker_punch-backgroundable" do
       require File.expand_path(File.dirname(__FILE__) + '/test_model')
       @model = TestModel.create(:value => 5)
       @model.copy_value_in_background
-      TestModel.queue.pop.should eq(5)
+      expect( TestModel.queue.pop ).to eq(5)
     end
     
   end
