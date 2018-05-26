@@ -54,3 +54,6 @@ spec/test.db
 # rvm
 .ruby-version
 .ruby-gemset
+
+Gemfile.lock
+.idea/
