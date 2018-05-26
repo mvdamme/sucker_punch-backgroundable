@@ -10,7 +10,7 @@ group :development do
   gem "rspec", "~> 3.5"
   gem "rdoc", "~> 3.12"
   gem "bundler", "~> 1.0"
-  gem "jeweler", "~> 2.0.1"
+  gem "juwelier", "~> 2.4"
   gem "simplecov", ">= 0"
   gem "activerecord"
   gem "sqlite3"
