@@ -1,3 +1,8 @@
+## 0.3.1 (26/5/2018)
+
+* Use newer version of rspec
+* Removed Gemfile.lock
+
 ## 0.3.0 (14/2/2015)
 
 * Now depend on Sucker Punch 2.0 or higher (due to new Sucker Punch API)
