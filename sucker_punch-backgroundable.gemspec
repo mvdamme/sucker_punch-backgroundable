@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
-  s.authors = ["Micha\u{eb}l Van Damme".freeze]
-  s.date = "2018-05-26"
+  s.authors = ["Micha\u00EBl Van Damme".freeze]
+  s.date = "2021-05-01"
   s.description = "This gem allows you to background any method call without having to write a special job class. Heavily inspired by the Backgroundable module in TorqueBox.".freeze
   s.email = "michael.vandamme@vub.ac.be".freeze
   s.extra_rdoc_files = [
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/mvdamme/sucker_punch-backgroundable".freeze
   s.licenses = ["LGPL-3".freeze]
-  s.rubygems_version = "2.6.11".freeze
+  s.rubygems_version = "3.0.3".freeze
   s.summary = "Easily execute an object's methods in the background with sucker_punch".freeze
 
   if s.respond_to? :specification_version then
@@ -78,3 +78,4 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sqlite3>.freeze, [">= 0"])
   end
 end
+

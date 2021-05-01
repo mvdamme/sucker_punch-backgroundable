@@ -1,3 +1,7 @@
+## 0.3.2 (01/05/2021)
+
+* Depend on newest version of sucker_punch (3.x)
+
 ## 0.3.1 (26/5/2018)
 
 * Use newer version of rspec
